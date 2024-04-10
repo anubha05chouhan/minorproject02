@@ -39,9 +39,6 @@ const isLoggedIn = (req, res, next) => {
     });
 };
 
-// Apply middleware globally
-app.use(isLoggedIn);
-
 // Route to handle user registration
 app.post('/register', async (req, res) => {
     try {
@@ -64,7 +61,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Route to handle user login and generate JWT token
-app.post('/login', async (req, res) => {
+app.post('/login', isLoggedIn, async (req, res) => {
     try {
         const { username, password } = req.body;
         // Check if user exists
